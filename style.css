@@ -1,9 +1,12 @@
+* {
+  font-family: 'Raleway', sans-serif;
+}
 #mapsig {
                 background-color:white;
                 width: 379px;
                 height: 250px;
             }
-			
+
 #canvas {
                 background-color:#B0E0E6;
                 width:200px;
@@ -21,7 +24,7 @@
                 width: 575px;
                 height: 750px;
             }
-			
+
 #button {
 				display: block;
 				padding: 5px;
@@ -31,6 +34,11 @@
 				width: 390px;
 				box-sizing: border-box;
 				color: black
+}
+#button:hover{
+  border: 1px solid #4CAF50;
+  cursor:pointer;
+
 }
 
 #latitude {
@@ -54,7 +62,3 @@
 				width: 80%;
 				box-sizing: border-box;
 				}
-
-
-
-			

@@ -1,0 +1,72 @@
+#mapsig {
+                background-color:white;
+                width: 379px;
+                height: 250px;
+            }
+			
+#canvas {
+                background-color:#B0E0E6;
+                width:200px;
+                height: 710px;
+            }
+
+.mapcanvas{
+				background-color:grey;
+				width:380px;
+				height:251px;
+}
+
+#mapdasar {
+                background-color:white;
+                width: 575px;
+                height: 710px;
+            }
+			
+#button {
+				display: block;
+				padding: 5px;
+				margin-bottom: 15px;
+				border: 1px solid #B0E0E6;
+				background: #B0E0E6;
+				width: 390px;
+				box-sizing: border-box;
+				color: black
+}
+
+#latitude {
+				display: block;
+				padding: 15px 20px;
+				margin-bottom: 15px;
+				border-radius: 5px;
+				border: 1px solid #EFEFEF;
+				background: #EFEFEF;
+				width: 80%;
+				box-sizing: border-box;
+				}
+
+#langitude {
+				display: block;
+				padding: 15px 20px;
+				margin-bottom: 15px;
+				border-radius: 5px;
+				border: 1px solid #EFEFEF;
+				background: #EFEFEF;
+				width: 80%;
+				box-sizing: border-box;
+				}
+				
+#infomarker {
+				display: block;
+				padding: 15px 20px;
+				margin-bottom: 15px;
+				border-radius: 5px;
+				border: 1px solid #EFEFEF;
+				background: #EFEFEF;
+				width:390px;
+				height: 100px;
+				box-sizing: border-box;
+				}
+
+
+
+			

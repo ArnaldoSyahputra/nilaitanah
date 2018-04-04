@@ -6,25 +6,25 @@
 	<meta charset="utf-8"> 
 	<meta name="viewport" content="width=device-width"> 
 	<title>Sistem Informasi Geografis</title> 
-    <h1>Sistem Informasi Geografis Nilai Tanah</h1> 
+    	<h1>Sistem Informasi Geografis Nilai Tanah</h1> 
 	<script src="http://maps.googleapis.com/maps/api/js"></script> 
 	
 <script> 
 var marker; 
    
-function taruhMarker(peta, posisiTitik){ 
+function taruhMarker(petasaya, posisiTitik){ 
 	if( marker ){ 
       marker.setPosition(posisiTitik); 
     } 
 	else { 
       marker = new google.maps.Marker({ 
       position: posisiTitik, 
-      map: peta 
+      map: petasaya 
       }); 
     } 
     document.getElementById("lat").value = posisiTitik.lat(); 
     document.getElementById("lng").value = posisiTitik.lng(); 
-	document.getElementById("info").value = posisiTitik.info();   
+    document.getElementById("info").value = posisiTitik.info();   
 } 
    
 function initialize() { 
@@ -34,13 +34,13 @@ function initialize() {
 		mapTypeId:google.maps.MapTypeId.ROADMAP 
 	}; 
    
-	var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta); 
+	var petasaya = new google.maps.Map(document.getElementById("googleMap"), propertiPeta); 
 	var infoWindow = new google.maps.InfoWindow; 
-	google.maps.event.addListener(peta, 'click', function(event) { 
+	google.maps.event.addListener(petasaya, 'click', function(event) { 
 		taruhMarker(this, event.latLng); 
 	}); 
   
-	google.maps.event.addListener(peta,'rightclick',function(event){ 
+	google.maps.event.addListener(petasaya,'rightclick',function(event){ 
 		marker.setPosition(null); 
 	}); 
 } 
@@ -67,14 +67,14 @@ function initialize() {
 					<h3>Home</h3>
 					<h3>View All Data</h3>
 					<h3>View Data Kategori 1</h3>
-					<h3>View Data Kategori 1</h3>
+					<h3>View Data Kategori 2</h3>
 				</center>
 		</td>
 		
 		<td>
 			<div id=mapdasar>
 			<div id="googleMap" style="width:570px;height:300px;"></div><br>
-			<h3> &nbsp; Input Data Marker</h3>
+			<h3>Input Data Marker</h3>
 			
 			<table> 
 				<tr>  

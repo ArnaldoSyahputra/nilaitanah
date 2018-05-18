@@ -1,64 +1,35 @@
-* {
-  font-family: 'Raleway', sans-serif;
-}
-#mapsig {
-                background-color:white;
-                width: 379px;
-                height: 250px;
-            }
-
-#canvas {
-                background-color:#B0E0E6;
-                width:200px;
-                height: 750px;
-            }
-
-.mapcanvas{
-				background-color:grey;
-				width:380px;
-				height:251px;
+*{
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
 }
 
-#mapdasar {
-                background-color:white;
-                width: 575px;
-                height: 750px;
-            }
-
-#button {
-				display: block;
-				padding: 5px;
-				margin-bottom: 15px;
-				border: 1px solid #B0E0E6;
-				background: #B0E0E6;
-				width: 390px;
-				box-sizing: border-box;
-				color: black
-}
-#button:hover{
-  border: 1px solid #4CAF50;
-  cursor:pointer;
-
+.page-title-span{
+    margin-left:10px ;
 }
 
-#latitude {
-				display: block;
-				padding: 15px 20px;
-				margin-bottom: 15px;
-				border-radius: 5px;
-				border: 1px solid #EFEFEF;
-				background: #EFEFEF;
-				width: 80%;
-				box-sizing: border-box;
-				}
+.button-right-icon{
+    margin-left: 10px;
+}
 
-#langitude {
-				display: block;
-				padding: 15px 20px;
-				margin-bottom: 15px;
-				border-radius: 5px;
-				border: 1px solid #EFEFEF;
-				background: #EFEFEF;
-				width: 80%;
-				box-sizing: border-box;
-				}
+.login-cover{
+    background: #a8d1e5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      
+}
+
+#loginProgress{
+    display: none;
+}
+
+#loginError{
+    display: none;
+}

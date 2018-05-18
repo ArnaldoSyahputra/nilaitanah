@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html>
+
+<!--IMPORT-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css" />
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+    #map{
+            height: 500px;
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+        }
+    #garis{
+        width:100%;
+        height:50px;
+        background-color:#0099ff;
+    }
+    .w3-bar .w3-button {
+        padding: 16px;
+    }
+    .bgimg-1 {
+        background-position: center;
+        background-size: cover;
+        background-image: url("/w3images/mac.jpg");
+        min-height: 100%;
+        }
+
+    .button-filter{
+      display: block;
+      padding: 15px 15px;
+      margin-bottom: 15px;
+      width:100%;
+      border-radius: 50px;
+      border: #388E3C solid 1px;
+      background: #468499;
+      color: black;
+      font-size : 20px;
+      font-weight : bolder;
+      text-decoration: none;
+      transition: 2s;
+
+    }
+    td{
+      padding:20px;
+    }
+    .button-filter:hover{
+      background: white;
+      padding: 15px 15px;
+      margin-bottom: 15px;
+      border-radius: 50px;
+      border: 1px solid #4CAF50;
+      cursor:pointer;
+    }
+    .button-text{
+      font-family: 'Slabo 27px', serif;
+      font-size:20px;
+    }
+
+    .button-wrapper{
+      background :#dfdfdf;
+      border-radius: 10px;
+      width: 80% auto;
+      vertical-align: middle;
+      text-align: center;
+    }
+    body{
+      background-color: #dfdfdf;
+    }
+
+    </style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Filter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+  <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <div class="w3-right w3-hide-small">
+          <a href="nilaitanahbaru.html" class="w3-bar-item w3-button">< BACK</a>
+          <a href="about.html" class="w3-bar-item w3-button">ABOUT</a>
+          <a href="help.html" class="w3-bar-item w3-button">HELP</a>
+          <a href="team.html" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PROFILE</a>
+          <a href="recommended.html" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> RECOMMENDED</a>
+          <a href="contact.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+        </div></div></div>
+<br><br>
+        <br>
+        <div id="map"></div>
+<br>
+<div class="button-wrapper">
+        <div class="button-text">
+          <center>Choose one of the button bellow</center>
+        </div>
+        <table align="center">
+          <tr>
+            <td>
+        <button class="button-filter" onclick="fullMap()">FullMap</button></td>
+        <td>
+        <button class="button-filter" onclick="telukBetungBarat()">Teluk Betung Barat</button></td>
+        <td>
+        <button class="button-filter" onclick="telukBetungSelatan()">Teluk Betung Selatan</button></td>
+        <td>
+        <button class="button-filter" onclick="telukBetungUtara()">Teluk Betung Utara</button></td>
+        <td>
+        <button class="button-filter" onclick="panjang()">Panjang</button></td>
+      </tr>
+      <tr>
+        <td>
+        <button class="button-filter" onclick="tanjungKarangTimur()">Tanjung Karang Timur</button></td>
+        <td>
+        <button class="button-filter" onclick="tanjungKarangPusat()">Tanjung Karang Pusat</button></td>
+        <td>
+        <button class="button-filter" onclick="tanjungKarangBarat()">Tanjung Karang Barat</button></td>
+        <td>
+        <button class="button-filter" onclick="kemiling()">Kemiling</button></td>
+        <td>
+        <button class="button-filter" onclick="kedaton()">Kedaton</button></td>
+      </tr>
+      <tr>
+        <td>
+        <button class="button-filter" onclick="rajabasa()">Rajabasa</button></td>
+        <td>
+        <button class="button-filter" onclick="tanjungSenang()">Tanjung Senang</button></td>
+        <td>
+        <button class="button-filter" onclick="sukarame()">Sukarame</button></td>
+        <td>
+        <button class="button-filter" onclick="sukabumi()">Sukabumi</button></td>
+      </tr>
+    </table></div>
+
+
+        <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7q7TznMg3Ai1LjVMjIpmsoJRwU_zSIY&libraries=places&callback=initMap" async defer></script>
+        <script>
+            var map = null;
+            var center = { lat:-5.420572, lng:105.258255};
+            var infowindow;
+
+            var config = {
+                apiKey: "AIzaSyBvhYM6Un6QKcHQ12plVzohY73RzzyvIEQ",
+                authDomain: "belajar-lagi-b3428.firebaseapp.com",
+                databaseURL: "https://belajar-lagi-b3428.firebaseio.com",
+                projectId: "belajar-lagi-b3428",
+                storageBucket: "belajar-lagi-b3428.appspot.com",
+                messagingSenderId: "1055657066334"
+            };
+            firebase.initializeApp(config);
+
+            var db =  firebase.database();
+
+            var dataRef = db.ref('bandar_lampung');
+            var dataRef0 = db.ref().child('bandar_lampung').child('features').child('0');
+            var dataRef1 = db.ref().child('bandar_lampung').child('features').child('1');
+            var dataRef2 = db.ref().child('bandar_lampung').child('features').child('2');
+            var dataRef3 = db.ref().child('bandar_lampung').child('features').child('3');
+            var dataRef4 = db.ref().child('bandar_lampung').child('features').child('4');
+            var dataRef5 = db.ref().child('bandar_lampung').child('features').child('5');
+            var dataRef6 = db.ref().child('bandar_lampung').child('features').child('6');
+            var dataRef7 = db.ref().child('bandar_lampung').child('features').child('7');
+            var dataRef8 = db.ref().child('bandar_lampung').child('features').child('8');
+            var dataRef9 = db.ref().child('bandar_lampung').child('features').child('9');
+            var dataRef10 = db.ref().child('bandar_lampung').child('features').child('10');
+            var dataRef11 = db.ref().child('bandar_lampung').child('features').child('11');
+            var dataRef12 = db.ref().child('bandar_lampung').child('features').child('12');
+            var dataRef13 = db.ref().child('bandar_lampung').child('features').child('13');
+            var dataRef14 = db.ref().child('bandar_lampung').child('features').child('14');
+            var dataRef15 = db.ref().child('bandar_lampung').child('features').child('15');
+            var dataRef16 = db.ref().child('bandar_lampung').child('features').child('16');
+            var dataRef17 = db.ref().child('bandar_lampung').child('features').child('17');
+            var dataRef18 = db.ref().child('bandar_lampung').child('features').child('18');
+            var dataRef19 = db.ref().child('bandar_lampung').child('features').child('19');
+            var dataRef20 = db.ref().child('bandar_lampung').child('features').child('20');
+            var dataRef21 = db.ref().child('bandar_lampung').child('features').child('21');
+            var dataRef22 = db.ref().child('bandar_lampung').child('features').child('22');
+            var dataRef23 = db.ref().child('bandar_lampung').child('features').child('23');
+            var dataRef24 = db.ref().child('bandar_lampung').child('features').child('24');
+            var dataRef25 = db.ref().child('bandar_lampung').child('features').child('25');
+            var dataRef26 = db.ref().child('bandar_lampung').child('features').child('26');
+            var dataRef27 = db.ref().child('bandar_lampung').child('features').child('27');
+            var dataRef28 = db.ref().child('bandar_lampung').child('features').child('28');
+            var dataRef29 = db.ref().child('bandar_lampung').child('features').child('29');
+            var dataRef30 = db.ref().child('bandar_lampung').child('features').child('30');
+            var dataRef31 = db.ref().child('bandar_lampung').child('features').child('31');
+            var dataRef32 = db.ref().child('bandar_lampung').child('features').child('32');
+            var dataRef33 = db.ref().child('bandar_lampung').child('features').child('33');
+            var dataRef34 = db.ref().child('bandar_lampung').child('features').child('34');
+            var dataRef35 = db.ref().child('bandar_lampung').child('features').child('35');
+            var dataRef36 = db.ref().child('bandar_lampung').child('features').child('36');
+            var dataRef37 = db.ref().child('bandar_lampung').child('features').child('37');
+            var dataRef38 = db.ref().child('bandar_lampung').child('features').child('38');
+            var dataRef39 = db.ref().child('bandar_lampung').child('features').child('39');
+            var dataRef40 = db.ref().child('bandar_lampung').child('features').child('40');
+            var dataRef41 = db.ref().child('bandar_lampung').child('features').child('41');
+            var dataRef42 = db.ref().child('bandar_lampung').child('features').child('42');
+            var dataRef43 = db.ref().child('bandar_lampung').child('features').child('43');
+            var dataRef44 = db.ref().child('bandar_lampung').child('features').child('44');
+            var dataRef45 = db.ref().child('bandar_lampung').child('features').child('45');
+            var dataRef46 = db.ref().child('bandar_lampung').child('features').child('46');
+            var dataRef47 = db.ref().child('bandar_lampung').child('features').child('47');
+            var dataRef48 = db.ref().child('bandar_lampung').child('features').child('48');
+            var dataRef49 = db.ref().child('bandar_lampung').child('features').child('49');
+            var dataRef50 = db.ref().child('bandar_lampung').child('features').child('50');
+            var dataRef51 = db.ref().child('bandar_lampung').child('features').child('51');
+            var dataRef52 = db.ref().child('bandar_lampung').child('features').child('52');
+            var dataRef53 = db.ref().child('bandar_lampung').child('features').child('53');
+            var dataRef54 = db.ref().child('bandar_lampung').child('features').child('54');
+            var dataRef55 = db.ref().child('bandar_lampung').child('features').child('55');
+            var dataRef56 = db.ref().child('bandar_lampung').child('features').child('56');
+            var dataRef57 = db.ref().child('bandar_lampung').child('features').child('57');
+            var dataRef58 = db.ref().child('bandar_lampung').child('features').child('58');
+            var dataRef59 = db.ref().child('bandar_lampung').child('features').child('59');
+            var dataRef60 = db.ref().child('bandar_lampung').child('features').child('60');
+            var dataRef61 = db.ref().child('bandar_lampung').child('features').child('61');
+            var dataRef62 = db.ref().child('bandar_lampung').child('features').child('62');
+            var dataRef63 = db.ref().child('bandar_lampung').child('features').child('63');
+            var dataRef64 = db.ref().child('bandar_lampung').child('features').child('64');
+            var dataRef65 = db.ref().child('bandar_lampung').child('features').child('65');
+            var dataRef66 = db.ref().child('bandar_lampung').child('features').child('66');
+            var dataRef67 = db.ref().child('bandar_lampung').child('features').child('67');
+            var dataRef68 = db.ref().child('bandar_lampung').child('features').child('68');
+            var dataRef69 = db.ref().child('bandar_lampung').child('features').child('69');
+            var dataRef70 = db.ref().child('bandar_lampung').child('features').child('70');
+            var dataRef71 = db.ref().child('bandar_lampung').child('features').child('71');
+            var dataRef72 = db.ref().child('bandar_lampung').child('features').child('72');
+            var dataRef73 = db.ref().child('bandar_lampung').child('features').child('73');
+            var dataRef74 = db.ref().child('bandar_lampung').child('features').child('74');
+            var dataRef75 = db.ref().child('bandar_lampung').child('features').child('75');
+            var dataRef76 = db.ref().child('bandar_lampung').child('features').child('76');
+            var dataRef77 = db.ref().child('bandar_lampung').child('features').child('77');
+            var dataRef78 = db.ref().child('bandar_lampung').child('features').child('78');
+            var dataRef79 = db.ref().child('bandar_lampung').child('features').child('79');
+            var dataRef80 = db.ref().child('bandar_lampung').child('features').child('80');
+            var dataRef81 = db.ref().child('bandar_lampung').child('features').child('81');
+            var dataRef82 = db.ref().child('bandar_lampung').child('features').child('82');
+            var dataRef83 = db.ref().child('bandar_lampung').child('features').child('83');
+            var dataRef84 = db.ref().child('bandar_lampung').child('features').child('84');
+            var dataRef85 = db.ref().child('bandar_lampung').child('features').child('85');
+            var dataRef86 = db.ref().child('bandar_lampung').child('features').child('86');
+            var dataRef87 = db.ref().child('bandar_lampung').child('features').child('87');
+            var dataRef88 = db.ref().child('bandar_lampung').child('features').child('88');
+            var dataRef89 = db.ref().child('bandar_lampung').child('features').child('89');
+            var dataRef90 = db.ref().child('bandar_lampung').child('features').child('90');
+            var dataRef91 = db.ref().child('bandar_lampung').child('features').child('91');
+            var dataRef92 = db.ref().child('bandar_lampung').child('features').child('92');
+            var dataRef93 = db.ref().child('bandar_lampung').child('features').child('93');
+            var dataRef94 = db.ref().child('bandar_lampung').child('features').child('94');
+            var dataRef95 = db.ref().child('bandar_lampung').child('features').child('95');
+            var dataRef96 = db.ref().child('bandar_lampung').child('features').child('96');
+            var dataRef97 = db.ref().child('bandar_lampung').child('features').child('97');
+
+            function initMap(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+            }
+
+
+            function fullMap(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef.on('value', showData);
+
+                function showData(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+            function telukBetungBarat(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef0.on('value', showData0);
+
+                function showData0(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef1.on('value', showData1);
+                function showData1(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef2.on('value', showData2);
+                function showData2(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef3.on('value', showData3);
+                function showData3(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef4.on('value', showData4);
+                function showData4(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef5.on('value', showData5);
+                function showData5(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef6.on('value', showData6);
+                function showData6(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef7.on('value', showData7);
+                function showData7(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }}
+
+            function telukBetungSelatan(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef8.on('value', showData8);
+                function showData8(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef9.on('value', showData9);
+                function showData9(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef10.on('value', showData10);
+                function showData10(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef11.on('value', showData11);
+                function showData11(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef12.on('value', showData12);
+                function showData12(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef13.on('value', showData13);
+                function showData13(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef14.on('value', showData14);
+                function showData14(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef15.on('value', showData15);
+                function showData15(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+                dataRef16.on('value', showData16);
+                function showData16(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef17.on('value', showData17);
+                function showData17(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef18.on('value', showData18);
+                function showData18(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+           function panjang(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef19.on('value', showData19);
+                function showData19(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef20.on('value', showData20);
+                function showData20(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef21.on('value', showData21);
+                function showData21(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef22.on('value', showData22);
+                function showData22(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef23.on('value', showData23);
+                function showData23(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef24.on('value', showData24);
+                function showData24(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef25.on('value', showData25);
+                function showData25(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+               dataRef26.on('value', showData26);
+                function showData26(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+           function tanjungKarangTimur(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef27.on('value', showData27);
+                function showData27(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef28.on('value', showData28);
+                function showData28(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef29.on('value', showData29);
+                function showData29(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef30.on('value', showData30);
+                function showData30(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef31.on('value', showData31);
+                function showData31(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef32.on('value', showData32);
+                function showData32(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef33.on('value', showData33);
+                function showData33(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+               dataRef34.on('value', showData34);
+                function showData34(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef35.on('value', showData35);
+                function showData35(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef36.on('value', showData36);
+                function showData36(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+            function telukBetungUtara(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef37.on('value', showData37);
+                function showData37(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef38.on('value', showData38);
+                function showData38(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef39.on('value', showData39);
+                function showData39(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef40.on('value', showData40);
+                function showData40(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef41.on('value', showData41);
+                function showData41(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef42.on('value', showData42);
+                function showData42(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef43.on('value', showData43);
+                function showData43(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+               dataRef44.on('value', showData44);
+                function showData44(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef45.on('value', showData45);
+                function showData45(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef96.on('value', showData96);
+                function showData96(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+            function tanjungKarangPusat(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef46.on('value', showData46);
+                function showData46(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef47.on('value', showData47);
+                function showData47(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef48.on('value', showData48);
+                function showData48(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef49.on('value', showData49);
+                function showData49(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef50.on('value', showData50);
+                function showData50(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef51.on('value', showData51);
+                function showData51(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef52.on('value', showData52);
+                function showData52(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+               dataRef53.on('value', showData53);
+                function showData53(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef54.on('value', showData54);
+                function showData54(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef55.on('value', showData55);
+                function showData55(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef56.on('value', showData56);
+                function showData56(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+            function tanjungKarangBarat(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef57.on('value', showData57);
+                function showData57(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef58.on('value', showData58);
+                function showData58(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef59.on('value', showData59);
+                function showData59(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef60.on('value', showData60);
+                function showData60(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef61.on('value', showData61);
+                function showData61(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef62.on('value', showData62);
+                function showData62(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+           function kemiling(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef63.on('value', showData63);
+                function showData63(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef64.on('value', showData64);
+                function showData64(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef65.on('value', showData65);
+                function showData65(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef66.on('value', showData66);
+                function showData66(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef67.on('value', showData67);
+                function showData67(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef68.on('value', showData68);
+                function showData68(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+               dataRef69.on('value', showData69);
+                function showData69(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+            function kedaton(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef70.on('value', showData70);
+                function showData70(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef71.on('value', showData71);
+                function showData71(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef72.on('value', showData72);
+                function showData72(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef73.on('value', showData73);
+                function showData73(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef74.on('value', showData74);
+                function showData74(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef75.on('value', showData75);
+                function showData75(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+               dataRef76.on('value', showData76);
+                function showData76(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef77.on('value', showData77);
+                function showData77(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+            function rajabasa(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef78.on('value', showData78);
+                function showData78(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef79.on('value', showData79);
+                function showData79(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef80.on('value', showData80);
+                function showData80(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef81.on('value', showData81);
+                function showData81(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+            }
+
+           function tanjungSenang(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef82.on('value', showData82);
+                function showData82(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef83.on('value', showData83);
+                function showData83(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef84.on('value', showData84);
+                function showData84(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef97.on('value', showData97);
+                function showData97(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+            }
+
+           function sukarame(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef85.on('value', showData85);
+                function showData85(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef86.on('value', showData86);
+                function showData86(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef87.on('value', showData87);
+                function showData87(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef88.on('value', showData88);
+                function showData88(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef89.on('value', showData89);
+                function showData89(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+            }
+
+            function sukabumi(){
+                map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 12,
+                    center: center
+                });
+
+                infowindow = new google.maps.InfoWindow();
+
+
+                var infowindowpusat = new google.maps.InfoWindow();
+                var contentStringpusat = '<h3>Central Of Bandar Lampung</h3><hr>'+
+                                                '<h4>Welcome!</h4>';
+                infowindowpusat.setContent(contentStringpusat);
+                var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(-5.402599,105.264040)
+                    });
+                marker.addListener('click',function(){
+                infowindowpusat.open(map,marker);
+                });
+
+                marker.setMap(map);
+
+                dataRef90.on('value', showData90);
+                function showData90(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef91.on('value', showData91);
+                function showData91(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef92.on('value', showData92);
+                function showData92(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef93.on('value', showData93);
+                function showData93(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef94.on('value', showData94);
+                function showData94(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+
+                dataRef95.on('value', showData95);
+                function showData95(data){
+                    //console.log(data.val());
+                    map.data.addGeoJson(data.val());
+                    map.data.setStyle({
+                        fillColor:'grey',
+                        strokeWeight:0.4
+                    });
+                    map.data.addListener('click', function(event){
+                        infowindowcontent = event.feature.getProperty('KECAMATAN');
+                        infowindow.setContent(infowindowcontent);
+                        infowindow.setPosition(event.latLng);
+                        infowindow.open(map);
+                    });
+                }
+            }
+
+        </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="index.js"></script>
+</body>
+</html>

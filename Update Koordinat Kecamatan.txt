@@ -1,0 +1,20 @@
+Koordinat	:
+Teluk Betung Utara	: -5.427083, 105.246131
+Teluk Betung Selatan	: -5.448392, 105.310387
+Teluk Betung Barat	: -5.440005, 105.236861
+Tanjung Karang Barat	: -5.419581, 105.225017
+Tanjung Karang Pusat	: -5.411459, 105.251056
+Tanjung Karang Timur	: -5.407386, 105.307769
+Tanjung Senang		: -5.357684, 105.275182
+Bumiwaras 		: -5.443400, 105.283255
+Enggal			: -5.416361, 105.260224
+Kedamaian		: -5.410760, 105.287004
+Kedaton			: -5.370799, 105.260604
+Kemiling		: -5.401701, 105.201962
+Labuhan Ratu		: -5.368561, 105.257479
+Langkapura		: -5.388745, 105.228451
+Panjang			: -5.455651, 105.322241
+Rajabasa 		: -5.371758, 105.237050
+Sukabumi		: -5.396346, 105.310296
+Sukarame		: -5.379510, 105.296013
+Way Halim		: -5.392521, 105.274920

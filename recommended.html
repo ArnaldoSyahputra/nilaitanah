@@ -1,88 +1,104 @@
+<!doctype html>
 <html>
-<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-	<!--START HEAD-->
+<head>
+  <title>Recommended</title>
+  <!-- including FusionCharts core package JS files -->
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css">
 
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>About</title>
-    <style>
-      html, body{
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-				width:100%;
+  <!-- including Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-database.js"></script>
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener("load", getData(genFunction));
+    function getData(callbackIN) {
+      var ref = firebase.database().ref("data");
+      ref.once('value').then(function (snapshot) {
+        callbackIN(snapshot.val())
+      });
+    }
+    function genFunction(data) {
+      var cdata = [];
+      var len = data.length;
+      for(var i=1; i<len; i++) {
+        cdata.push({
+          label: data[i]['label'],
+          value: data[i]['value']
+        });
+      }
+    var firebaseChart = new FusionCharts({
+        type: 'area2d',
+        renderAt: 'chart-container',
+        width: '1050',
+        height: '400',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Land Price Graph (/m2)",
+                "subCaption": "May-june 2018",
+                "subCaptionFontBold": "0",
+                "captionFontSize": "30",
+                "subCaptionFontSize": "20",
+                "captionPadding": "15",
+                "captionFontColor": "#0d0d0d",
+                "baseFontSize": "13",
+                "baseFont": "Barlow",
+                "canvasBgAlpha": "0",
+                "bgColor": "#e6ecff",
+                "bgAlpha": "80",
+                "showBorder": "0",
+                "showCanvasBorder": "0",
+                "showPlotBorder": "0",
+                "showAlternateHGridColor": "0",
+                "usePlotGradientColor": "0",
+                "paletteColors": "#3366ff",
+                "showValues": "1",
+                "divLineAlpha": "5",
+                "showAxisLines": "1",
+                "drawAnchors": "50",
+                "xAxisLineColor": "#8C8C8C",
+                "xAxisLineThickness": "4", //0.7
+                "xAxisLineAlpha": "100",
+                "yAxisLineColor": "#8C8C8C",
+                "yAxisLineThickness": "4",
+                "yAxisLineAlpha": "100",
+                "baseFontColor": "#0d0d0d",
+                "toolTipBgColor": "#FA8D67",
+                "toolTipPadding": "10",
+                "toolTipColor": "#FFFFFF",
+                "toolTipBorderRadius": "3",
+                "toolTipBorderAlpha": "0",
+                "drawCrossLine": "1",
+                "crossLineColor": "#8C8C8C",
+                "crossLineAlpha": "60",
+                "crossLineThickness": "0.7",
+                "alignCaptionWithCanvas": "10"
+            },
+            "data": cdata
+        }
+    });
+    firebaseChart.render();
+    }
+  </script>
+</head>
 
-      }
-      .bgimg-1 {
-        background-position: center;
-        background-size: cover;
-        background-image: url("/w3images/mac.jpg");
-        min-height: 100%;
-      }
-      .w3-bar .w3-button {
-          padding: 16px;
-      }
-      table{
-        border-color : rgb(204, 255, 204);
-        border-radius : 10px;
-        border-style: outset;
-        font-family: 'Poiret One';
-        font-style: normal;
-        font-weight: 400;
-        font-size : 40px;
-      }
-      td{
-        padding : 10px;
-      }
-      p{
-        font-family: 'Poiret One';
-        font-style: normal;
-        font-weight: 400;
-        font-size : 40px;
-      }
-      .kalimat{
-        font-size:30px;
-      }
-      hr{
-        width: 80%;
-        height: 8px;
-        margin-left: auto;
-        margin-right: auto;
-        background-color:#a0db8e;
-        color:#a0db8e;
-        border: 0 none;
-      }
-      </style>
-
-    </head>
-
-    <!--START BODY-->
-
-    <body>
-      <div class="w3-top">
-      <div class="w3-bar w3-white w3-card" id="myNavbar">
-      <div class="w3-right w3-hide-small">
-        <a href="nilaitanahbaru.html" class="w3-bar-item w3-button">< BACK</a>
-        <a href="about.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> ABOUT</a>
-        <a href="help.html" class="w3-bar-item w3-button">HELP</a>
-        <a href="team.html" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PROFILE</a>
-        <a href="filter.html" class="w3-bar-item w3-button"><i class="fa fa-th"></i> FILTER</a>
-        <a href="contact.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
-      </div></div></div>
-
-      <div class="w3-container" style="padding:128px 16px" id="recommended">
-        <div class="kalimat">
-        <center>Top 2 Prices of the day<br><hr><hr>
-          <center><h1>Sell<h1><img src="rupiah.png" height="130px">
-            <hr><hr>
-          <img src="graph.png">
-
-        </div>
-      </div>
-
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <div class="w3-right w3-hide-small">
+          <a href="guestnilaitanahbaru.html" class="w3-bar-item w3-button">< BACK</a>
+          <a href="guestabout.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> ABOUT</a>
+          <a href="guesthelp.html" class="w3-bar-item w3-button">HELP</a>
+          <a href="guestteam.html" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PROFILE</a>
+          <a href="guestfilter.html" class="w3-bar-item w3-button"><i class="fa fa-th"></i> FILTER</a>
+          <a href="guestcontact.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+        </div></div></div>
+    <br><br><br><br>
+  <center><div id="chart-container"><svg width="90px"  height="90px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;"><circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#6ac1a5" stroke-width="9" r="33" stroke-dasharray="155.50883635269477 53.83627878423159" transform="rotate(324 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg></div></center>
+  <center><h4>Highest Price: Tanjung Karang Pusat</h4>
+	<h4>Lowest Price: Kemiling</h4></center>
 </body>
+
 </html>
+© 2

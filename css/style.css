@@ -1,0 +1,47 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #263238;
+  }
+
+.header-wrapper {
+    background:url(../img/background.jpg);
+    background-size:cover;
+
+}
+
+.header {
+    text-align:center;
+    width: 100%;
+    height:100vh;
+    display: flex;
+    align-items: center;
+}
+
+.header h1{
+    font-family:'poiret one', cursive;
+    font-size:50px;
+    margin: 0 0 70px;
+}
+
+.header p {
+
+    font-size: 25px;
+    font-family: 'open sans', sans-serif;
+    font-weight: 300;
+    margin: 0 0 70px;
+    color: #424242;
+}
+
+.header .custom-btn-more {
+
+    border: 1px solid #2196F3;
+    border-radius: 50px;
+    padding: 10px 30px;
+    color: #2196F3;
+}
+
+.header .custom-btn-more:hover {
+
+    background: #2196f2;
+    color: #fff;
+}

@@ -86,7 +86,14 @@
               border-color: #4d90fe;
           }
 
-        
+         #time{
+            font-size: 25px;
+            font-weight: 300;
+            text-overflow: ellipsis;
+            font-family: 'Roboto', sans-serif;
+            text-align: right;
+            text-shadow: 1px 1px black
+        }
       </style>
 
 </head>
@@ -157,8 +164,8 @@
             <li>Latitude: <span id="lat"></span></li>
             <li>Longitude: <span id="lon"></span></li>
         </ul>
-
-  </div>
+    </div>
+    <p id="time"></p> 
 
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7q7TznMg3Ai1LjVMjIpmsoJRwU_zSIY&callback=initMap"></script>
@@ -326,6 +333,12 @@
                 }
             });
         }
+         var display=setInterval(function(){Time()},0);
+            function Time(){
+                var date=new Date();
+                var time=date.toLocaleTimeString();
+                document.getElementById("time").innerHTML=time;
+            }
             </script>
             <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
             <script src="index.js"></script>

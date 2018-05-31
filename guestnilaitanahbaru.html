@@ -119,6 +119,12 @@
 
               <div id="garis"></div>
               <input id="searchInput" class="controls" type="text" placeholder="Find Location">
+    
+              <div id="floating-panel">
+              <input type="button" value="Toggle Street View" class="button-overlay" onclick="toggleStreetViewBandarLampung();"></input>
+              <input onclick="removeOverlay();" type=button value="Remove overlay" class="button-overlay">
+              <input onclick="addOverlay();" type=button value="Restore overlay" class="button-overlay">
+              </div>
               
     <div id="map"></div>
         <div><b>Start: </b>
@@ -175,6 +181,7 @@
         var map = null;
         var center = { lat:-5.420572, lng:105.258255};
         var infowindow;
+        var panorama;
 
         var config = {
             apiKey: "AIzaSyBvhYM6Un6QKcHQ12plVzohY73RzzyvIEQ",
@@ -208,7 +215,11 @@
         function showError(err){
             console.log(err);
         }
-
+        
+        var historicalOverlay;
+        var historicalOverlay1;
+        var historicalOverlay2;
+        var historicalOverlay3;
         function initMap(){
             map = new google.maps.Map(document.getElementById('map'),{
                 zoom: 12,
@@ -317,6 +328,59 @@
             };
             document.getElementById('start').addEventListener('change', onChangeHandler);
             document.getElementById('end').addEventListener('change', onChangeHandler);
+            panorama = map.getStreetView();
+            panorama.setPosition(bandarLampung);
+            panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+            heading: 265,
+            pitch: 0
+            }));
+
+            var imageBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-5.491289, 105.012213),
+                new google.maps.LatLng(-5.381920, 105.157438));
+
+            historicalOverlay = new google.maps.GroundOverlay(
+            'bandarlampung3.jpg',
+            imageBounds);
+
+
+            var imageBounds1 = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-5.372862, 105.012900),
+                new google.maps.LatLng(-5.276463, 105.156409));
+
+            historicalOverlay1 = new google.maps.GroundOverlay(
+            'bandarlampung4.jpg',
+            imageBounds1);
+
+            var imageBounds2 = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-5.269529, 105.012582),
+                new google.maps.LatLng(-5.148777, 105.157221));
+
+            historicalOverlay2 = new google.maps.GroundOverlay(
+            'bandarlampung5.JPG',
+            imageBounds2);
+
+            var imageBounds3 = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-5.268092, 105.157509),
+                new google.maps.LatLng(-5.149352, 105.215249));
+
+            historicalOverlay3 = new google.maps.GroundOverlay(
+            'bandarlampung6.JPG',
+            imageBounds3);
+        }
+        
+        function addOverlay() {
+            historicalOverlay.setMap(map);
+            historicalOverlay1.setMap(map);
+            historicalOverlay2.setMap(map);
+            historicalOverlay3.setMap(map);
+        }
+
+        function removeOverlay() {
+            historicalOverlay.setMap(null);
+            historicalOverlay1.setMap(null);
+            historicalOverlay2.setMap(null);
+            historicalOverlay3.setMap(null);
         }
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -340,6 +404,33 @@
                 var time=date.toLocaleTimeString();
                 document.getElementById("time").innerHTML=time;
             }
+        
+         function displayLocationElevation(location, elevator, infowindow) {
+            elevator.getElevationForLocations({
+                'locations': [location]
+            }, function(results, status) {
+                infowindow.setPosition(location);
+                if (status === 'OK') {
+                    if (results[0]) {
+                    infowindow.setContent('The elevation at this point <br>is ' +
+                        results[0].elevation + ' meters.');
+                    } else {
+                    infowindow.setContent('No results found');
+                    }
+                } else {
+                    infowindow.setContent('Elevation service failed due to: ' + status);
+                }
+            });
+        }
+        
+        function toggleStreetViewBandarLampung() {
+            var toggle = panorama.getVisible();
+            if (toggle == false) {
+                panorama.setVisible(true);
+            } else {
+                panorama.setVisible(false);
+            }
+        }
             </script>
             <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
             <script src="index.js"></script>

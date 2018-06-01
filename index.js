@@ -48,31 +48,6 @@ $("#loginBtn").click(
     }
 );
 
-//create user
-$("#registerBtn").click(
-    function(){
-
-        var email = $("#loginEmail").val();
-        var password = $("#loginPassword").val();
-
-        if(email !="" && password !=""){
-
-            $("#loginProgress").show();
-            $("#registerBtn").hide();
-
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
-
-                $("#loginError").show().text(error.message);
-
-                $("#loginProgress").hide();
-                $("#registerBtn").show();
-                
-    
-            });
-
-        }
-    }
-);
 
 //logout process
 

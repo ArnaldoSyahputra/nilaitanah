@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="signin.css">
+    
+</head>
+<body>
+    <div id="login_div" class="main-div">
+        <h3><font size="10px">Regsiter</font></h3>
+        <input type="email" placeholder="Email..." id="email_field"/>
+        <input type="password" placeholder="Password..." id="password_field"/>
+
+        <button onclick="create_account()">Create a new Account</button>
+    </div>
+    <br>
+    Refresh this page after verifying your email!
+    <div id="user_div" class="loggedin-div">
+        <h3>Welcome User</h3>
+        <p id="user_para"></p>
+        <button id="verify_btn" onclick="send_verification()">Send Verification</button><br><br>
+        <button id="masuk"><a href="nilaitanahbaru.html">Sign in</a></button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+        var config = {
+        apiKey: "AIzaSyBvhYM6Un6QKcHQ12plVzohY73RzzyvIEQ",
+        authDomain: "belajar-lagi-b3428.firebaseapp.com",
+        databaseURL: "https://belajar-lagi-b3428.firebaseio.com",
+        projectId: "belajar-lagi-b3428",
+        storageBucket: "belajar-lagi-b3428.appspot.com",
+        messagingSenderId: "1055657066334"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="login.js"></script>
+</body>
+</html>

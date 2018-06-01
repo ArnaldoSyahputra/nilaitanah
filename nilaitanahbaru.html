@@ -71,7 +71,7 @@
             outline: none;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
           }
-          #searchInput {
+        #searchInput {
               background-color: #fff;
               font-family: Roboto;
               font-size: 15px;
@@ -81,10 +81,11 @@
               text-overflow: ellipsis;
               width: 50%;
           }
-          #searchInput:focus {
+        #searchInput:focus {
               border-color: #4d90fe;
           }
-         #time{
+
+        #time{
             font-size: 25px;
             font-weight: 300;
             text-overflow: ellipsis;
@@ -92,9 +93,40 @@
             text-align: right;
             text-shadow: 1px 1px black
         }
-        
-         #floating-panel {
+
+
+        #floating-panel {
+        position: absolute;
+        top: 100px;
+        left: 6.7%;
+        z-index: 5;
+
+        padding: 5px;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        }
+
+        #floating-panel {
         margin-left: -100px;
+        }
+        .button-overlay{
+        background-color: #59B000;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 15px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        transition: 1s;
+        }
+        .button-overlay:hover{
+        cursor:pointer;
+        background-color: #70DE00;
+        transition: 1s;
         }
       </style>
 
@@ -124,19 +156,16 @@
                 <button id="loginBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                     Sign In
                 </button>
-                <button id="registerBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                    Register
-                </button>
                 <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
                 </div>
         </dialog>
 
-        <div class="login-cover">
+        <div class="login-cover"></div>
 
                 <!-- MDL Spinner Component -->
                 <div class="page-loader mdl-spinner mdl-js-spinner is-active"></div>
 
-            </div>
+        </div>
 
         <!--MAIN PAGE CONTENT -->
 
@@ -156,13 +185,12 @@
 
               <div id="garis"></div>
               <input id="searchInput" class="controls" type="text" placeholder="Find Location">
-         
+
     <div id="floating-panel">
         <input type="button" value="Toggle Street View" class="button-overlay" onclick="toggleStreetViewBandarLampung();"></input>
         <input onclick="removeOverlay();" type=button value="Remove overlay" class="button-overlay" >
         <input onclick="addOverlay();" type=button value="Restore overlay" class="button-overlay" >
     </div>
-
     <div id="map"></div>
     <div><b>Start: </b>
             <select id="start">
@@ -208,9 +236,8 @@
             <li>Latitude: <span id="lat"></span></li>
             <li>Longitude: <span id="lon"></span></li>
         </ul>
-    </div>
-    <p id="time"></p>
-
+  </div>
+  <p id="time"></p>
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7q7TznMg3Ai1LjVMjIpmsoJRwU_zSIY&callback=initMap"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7q7TznMg3Ai1LjVMjIpmsoJRwU_zSIY&libraries=places&callback=initMap" async defer></script>
@@ -218,6 +245,7 @@
         var map = null;
         var center = { lat:-5.420572, lng:105.258255};
         var infowindow;
+        var panorama;
 
         var config = {
             apiKey: "AIzaSyBvhYM6Un6QKcHQ12plVzohY73RzzyvIEQ",
@@ -245,6 +273,9 @@
                 infowindow.setContent(infowindowcontent);
                 infowindow.setPosition(event.latLng);
                 infowindow.open(map);
+                map.addListener('click', function(event) {
+                    displayLocationElevation(event.latLng, elevator, infowindow);
+                });
             });
         }
 
@@ -257,11 +288,12 @@
         var historicalOverlay2;
         var historicalOverlay3;
         function initMap(){
+            var bandarLampung = {lat:-5.422229, lng:105.258120};
             map = new google.maps.Map(document.getElementById('map'),{
                 zoom: 12,
                 center: center
             });
-
+            var elevator = new google.maps.ElevationService;
             infowindow = new google.maps.InfoWindow();
 
 
@@ -276,6 +308,9 @@
             infowindowpusat.open(map,marker);
             });
 
+            map.addListener('click', function(event) {
+                displayLocationElevation(event.latLng, elevator, infowindow);
+            });
             marker.setMap(map);
 
             var input = document.getElementById('searchInput');
@@ -350,7 +385,7 @@
             markerlokasi.setVisible(false);
             infowindowlokasi.close();
             });
-            
+
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
             directionsDisplay.setMap(map);
@@ -363,8 +398,8 @@
             };
             document.getElementById('start').addEventListener('change', onChangeHandler);
             document.getElementById('end').addEventListener('change', onChangeHandler);
-            
-             panorama = map.getStreetView();
+
+            panorama = map.getStreetView();
             panorama.setPosition(bandarLampung);
             panorama.setPov(/** @type {google.maps.StreetViewPov} */({
             heading: 265,
@@ -402,8 +437,9 @@
             historicalOverlay3 = new google.maps.GroundOverlay(
             'bandarlampung6.JPG',
             imageBounds3);
+
         }
-        
+
         function addOverlay() {
             historicalOverlay.setMap(map);
             historicalOverlay1.setMap(map);
@@ -425,7 +461,7 @@
             origin: document.getElementById('start').value,
             destination: document.getElementById('end').value,
             travelMode: google.maps.TravelMode[selectedMode]
-            }, 
+            },
             function(response, status) {
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
@@ -434,14 +470,14 @@
                 }
             });
         }
-        
+
         var display=setInterval(function(){Time()},0);
             function Time(){
                 var date=new Date();
                 var time=date.toLocaleTimeString();
                 document.getElementById("time").innerHTML=time;
-            }
-        
+        }
+
         function displayLocationElevation(location, elevator, infowindow) {
             elevator.getElevationForLocations({
                 'locations': [location]
@@ -468,9 +504,9 @@
                 panorama.setVisible(false);
             }
         }
-
-     </script>
+    </script>
      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
      <script src="index.js"></script>
+     <script src="login.js"></script>
 </body>
 </html>

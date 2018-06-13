@@ -8,43 +8,76 @@
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>About</title>
+    <title>Contact Us</title>
     <style>
       html, body{
         height: 100%;
         margin: 0px;
         padding: 0px;
 				width:100%;
-        background: #ADA996;
-        background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
-        background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
+        color: #fff;
+        background: #6190E8;
+        background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
+        background: linear-gradient(to right, #A7BFE8, #6190E8);
       }
-      .bgimg-1 {
-      background-position: center;
-      background-size: cover;
-      background-image: url("/w3images/mac.jpg");
-      min-height: 100%;
-      }
+
       .w3-bar .w3-button {
           padding: 16px;
       }
-      table{
-        border-color : rgb(204, 255, 204);
-        border-radius : 10px;
-        border-style: outset;
-        font-family: 'Poiret One';
-    font-style: normal;
-    font-weight: 400;
-    font-size : 40px;
-      }
-      td{
-        padding : 10px;
-      }
+
       p{
         font-family: 'Poiret One';
-    font-style: normal;
-    font-weight: 400;
-    font-size : 40px;
+        font-style: normal;
+        font-weight: 400;
+        font-size : 40px;
+      }
+      .split {
+        margin-top: 56px;
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+
+      .left {
+        left: 0;
+        background-color: #252728;
+        transition: 2s;
+      }
+
+      .left:hover{
+        background-color: #484442;
+        transition: 2s;
+      }
+
+
+      .right {
+        right: 0;
+        background-color: #063535;
+        transition: 2s;
+      }
+
+      .right:hover{
+        background-color: #15404e;
+        transition: 2s;
+      }
+
+
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .gambar{
+        border-radius: 20px;
+        width: 300px;
+        height: 200px;
       }
       </style>
 
@@ -57,7 +90,7 @@
       <div class="w3-bar w3-white w3-card" id="myNavbar">
       <div class="w3-right w3-hide-small">
         <a href="guestnilaitanahbaru.html" class="w3-bar-item w3-button">< BACK</a>
-        <a href="searchdata.html" class="w3-bar-item w3-button">SEARCH</a>
+        <a href="guestsearchdata.html" class="w3-bar-item w3-button">SEARCH</a>
         <a href="guestabout.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> ABOUT</a>
         <a href="guesthelp.html" class="w3-bar-item w3-button">HELP</a>
         <a href="guestteam.html" class="w3-bar-item w3-button"><i class="fa fa-user"></i> PROFILE</a>
@@ -66,33 +99,22 @@
 
       </div></div></div>
 
-      <div class="w3-container" style="padding:128px 16px" id="about">
-        <center>  <img src="contact2.png" width="150" height="100">
-          <p>Contact Us</p>
+      <div class="split left">
+        <div class="centered">
+          <p>Email <br> LandPrice@gmail.com</p><hr>
+            <p>Phone Number <br>0821-7452-0312</p><hr>
+            <p>Twitter <br>@LandPrice</p>
+        </div>
+      </div>
 
-          <table>
-            <tr>
-            <td>Email </td>
-            <td>: LandPrice@gmail.com</td>
-
-          </tr>
-
-            <td>Phone Number</td>
-            <td>: 0821-7452-0312<td>
-          </tr>
-
-          <tr>
-            <td>Twitter</td>
-            <td>: @LandPrice</td>
-          </tr>
-          </table>
-
-
-
-
-        </body>
-      </center>
-</div>
+  <div class="split right">
+    <div class="centered">
+      <p>Instagram</p><hr>
+      <br><p>@ridhovaldi</p><hr>
+      <br><p>@sigit_frank</p><hr>
+      <br><p>@tantutwahyu</p>
+    </div>
+  </div>
 
 </body>
 </html>

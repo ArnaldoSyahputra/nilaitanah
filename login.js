@@ -12,9 +12,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         if(email_verified){
             document.getElementById("verify_btn").style.display="none";
+            document.getElementById("back").style.display="none";
             document.getElementById("masuk").style.display="block";
         } else{
             document.getElementById("verify_btn").style.display="block";
+            document.getElementById("back").style.display="block";
             document.getElementById("masuk").style.display="none";
         }
 
@@ -56,4 +58,8 @@ function send_verification(){
     // An error happened.
     window.alert("Error: "+error.message);
     });
+}
+
+function logout(){
+    firebase.auth().signOut();
 }

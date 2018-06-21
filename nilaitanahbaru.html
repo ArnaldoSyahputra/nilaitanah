@@ -28,13 +28,6 @@
             padding: 0px;
             width: 100%;
         }
-        /* html, body{
-            height: 200%;
-            margin: 0px;
-            padding: 0px;
-            width:100%;
-
-        } */
         #map-canvas{
             height: 500px;
             margin: 0px;
@@ -96,37 +89,52 @@
 
 
         #floating-panel {
-        position: absolute;
-        top: 100px;
-        left: 6.7%;
-        z-index: 5;
+            position: absolute;
+            top: 100px;
+            left: 6.7%;
+            z-index: 5;
 
-        padding: 5px;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
+            padding: 5px;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
         }
 
         #floating-panel {
-        margin-left: -100px;
+            margin-left: -100px;
         }
+
         .button-overlay{
-        background-color: #59B000;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        padding: 15px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 13px;
-        transition: 1s;
+            background-color: #59B000;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            transition: 1s;
         }
         .button-overlay:hover{
-        cursor:pointer;
-        background-color: #70DE00;
-        transition: 1s;
+            cursor:pointer;
+            background-color: #70DE00;
+            transition: 1s;
+        }
+
+        #legend {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            border: 3px solid #000;
+            width: 130px;
+            margin-top: 5px;
+        }       
+        #legend h3 {
+            margin-top: 0;
+        }
+        #legend img {
+            vertical-align: middle;
         }
       </style>
 
@@ -190,6 +198,38 @@
         <input type="button" value="Toggle Street View" class="button-overlay" onclick="toggleStreetViewBandarLampung();"></input>
         <input onclick="removeOverlay();" type=button value="Remove overlay" class="button-overlay" >
         <input onclick="addOverlay();" type=button value="Restore overlay" class="button-overlay" >
+        <div id="legend"><h5><b>Legend</b></h5>
+            <table>
+                <tr>
+                    <td><img src="markerpusat.JPG" width="20px"><img></td>
+                    <td><font size="2px">Central City</font></td>
+                </tr>
+                <tr>
+                    <td><img src="markersearch.JPG" width="20px"><img></td>
+                    <td><font size="2px">Searching Place</font></td>
+                </tr>
+                <tr>
+                    <td><img src="luas.PNG" width="20px"><img></td>
+                    <td><font size="2px">Land Wide</font></td>
+                </tr>
+                <tr>
+                    <td><img src="penduduk.PNG" width="20px"><img></td>
+                    <td><font size="2px">Land Population</font></td>
+                </tr>
+                <tr>
+                    <td><img src="Dollar.PNG" width="20px"><img></td>
+                    <td><font size="2px">Land Price</font></td>
+                </tr>
+                <tr>
+                    <td><img src="destinasi.PNG" width="20px"><img></td>
+                    <td><font size="2px">Point of Interest</font></td>
+                </tr>
+                <tr>
+                    <td><img src="poligon.PNG" width="20px"><img></td>
+                    <td><font size="2px">Border Area</font></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div id="map"></div>
     <div><b>Start: </b>

@@ -7,7 +7,8 @@
     <meta charset="utf-8">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <title>About</title>
     <style>
       html, body{
@@ -15,6 +16,10 @@
         margin: 0px;
         padding: 0px;
 				width:100%;
+        background: #6190E8;
+        background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
+        background: linear-gradient(to right, #A7BFE8, #6190E8);
+
       }
       .bgimg-1 {
       background-position: center;
@@ -24,6 +29,68 @@
       }
       .w3-bar .w3-button {
           padding: 16px;
+      }
+      .split {
+        margin-top: 56px;
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+
+      .left {
+        left: 0;
+        background-color: black;
+        transition: 2s;
+      }
+
+      .left:hover{
+        background-color:grey;
+        transition: 2s;
+      }
+
+
+      .right {
+        right: 0;
+        background-color:gray;
+        transition: 2s;
+      }
+
+      .right:hover{
+        background-color: black;
+        transition: 2s;
+      }
+
+
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .text-inside{
+        font-family: 'Open Sans', sans-serif;
+        color: white;
+        font-size: 20px;
+      }
+      .text-inside-right{
+        font-family: 'Open Sans', sans-serif;
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+      }
+      #outer {
+        width: 100%;
+        text-align: center;
+      }
+
+      #inner {
+        display: inline-block;
       }
       </style>
 
@@ -41,6 +108,34 @@
         <a href="guestfilter.html" class="w3-bar-item w3-button"><i class="fa fa-th"></i> FILTER</a>
         <a href="guestrecommended.html" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> RECOMMENDED</a>
         <a href="guestcontact.html" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+      </div></div></div>
+      
+      <div class="split left">
+        <div class="centered">
+          <div class="text-inside">
+            <p>Questions</p><hr><br>
+                1. What is Land Price Geographic Information System ?  <br><br>
+                2. Is this only available in Bandar Lampung ? <br><br>
+                3. Can we search data about specific location ? <br><br>
+                4. Can we watch the tutorial video? <br><br><br>
+                5. More questions?</a><br><br><br>
+                </div>
+              </div>
+        </div>
+        
+
+      <div class="split right">
+        <div class="centered">
+          <div class="text-inside-right">
+            <p>Answers</p><hr><br>
+              1.This information system contains geographical information of Bandar Lampung<br>
+              with addition of some spesific information of land price Bandar Lampung city. <br><br>
+              2.Currently, yes. <br><br>
+              3.Yes, you can do so in the Search menu on the navigation bar<br><br>
+              4.Absolutely, <a href="guestvideo.html">watch video!</a><br><br>
+              5.You must login first.</a><br><br>
+            </div>
+        </div>
       </div>
-      <div class="w3-container" style="padding:128px 16px" id="help">
-      <h1>This page will show you how to use Geographic Information System Land Price soon!<h1></div>
+      </body>
+    
